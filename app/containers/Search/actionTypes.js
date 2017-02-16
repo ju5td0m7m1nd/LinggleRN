@@ -7,4 +7,7 @@ import keyMirror from 'keymirror'
 
 export default keyMirror({
   SEARCH: null,
+  SEARCH_SUCCESS: null,
+  SEARCH_FAILED: null,
+  RESET: null,
 })

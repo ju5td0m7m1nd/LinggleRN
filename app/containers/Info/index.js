@@ -14,21 +14,25 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconContainer: {
-    flex: 4,
+    marginTop: 20,
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#222'
   },
   contentContainer: {
     flex: 7,
     padding: 16,
+    paddingLeft: 48,
+    paddingRight: 48,
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   icon: {
     marginTop: 16,
-    width: 132,
-    height: 132,
+    width: 72,
+    height: 72,
   },
   title: {
     fontSize: 24,
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   content: {
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 24,
     marginTop: 8,
     textAlign: 'justify',

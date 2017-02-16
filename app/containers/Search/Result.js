@@ -37,14 +37,14 @@ export default class Result extends Component {
   }
 
   render() {
-    const {phase, count, percentage, title} = this.props;
+    const {phrase, count, percentage, title} = this.props;
     return (
       <View style={styles.container}>
         <Text style={[styles.sentence, {color: title ? '#CC0000' : '#000',
           paddingTop: title ? 16 : 8,
           paddingBottom: title ? 16 : 8,
         }]}>
-          {phase.reduce((pre, cur) => pre.concat(`${cur} `), '')}
+          {phrase.reduce((pre, cur) => pre.concat(`${cur} `), '')}
         </Text>
         <Text style={[styles.count, {color: title ? '#CC0000' : '#000',
           paddingTop: title ? 16 : 8,

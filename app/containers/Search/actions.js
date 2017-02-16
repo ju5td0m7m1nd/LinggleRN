@@ -20,7 +20,12 @@ export const search = (payload) => {
     )
       .then(
         res => {
-          console.log(res._bodyInit)
+          dispatch(
+            {
+              type: actionTypes.SEARCH_SUCCESS,
+              payload: res._bodyInit
+            }
+          )
         }
       )
       .catch(
@@ -28,3 +33,7 @@ export const search = (payload) => {
       )
   }
 }
+
+export const reset = () => ({
+  type: actionTypes.RESET
+})

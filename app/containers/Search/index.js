@@ -6,8 +6,9 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, StyleSheet, Image, TextInput, Dimensions, Animated, TouchableHighlight} from 'react-native';
-import {route} from '../App/actions';
-import {search} from './actions';
+import * as Progress from 'react-native-progress';
+import {search, reset} from './actions';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import ResultContainer from './ResultContainer'
 
@@ -40,6 +41,11 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.5,
     height: screenWidth * 0.5 * (128 / 325),
     left: screenWidth * 0.25,
+  },
+  loading: {
+    position: 'absolute',
+    top: screenHeight * 0.4,
+    left: screenWidth * 0.5 - 24,
   }
 });
 
@@ -64,13 +70,11 @@ class Search extends Component {
   }
 
   inputBlur = () => {
-    const { done, isLoading } = this.props;
-    if ( !done || isLoading)
-      this.setState({query: ''})
-      Animated.timing(
-        this.state.expand,
-        {toValue: 0}
-      ).start();
+    this.setState({query: ''})
+    Animated.timing(
+      this.state.expand,
+      {toValue: 0}
+    ).start();
   }
 
   inputChange = (e) => {
@@ -82,6 +86,7 @@ class Search extends Component {
   }
 
   resetQuery = () => {
+    this.props.dispatch(reset())
     this.inputBlur()
   }
 
@@ -92,10 +97,15 @@ class Search extends Component {
   }
 
   render() {
-    const {isLoading} = this.props;
-
+    const {isLoading, answers} = this.props;
     return (
       <View style={styles.container}>
+        {
+          isLoading ?
+            <Animated.View style={styles.loading}>
+              <Progress.Circle size={48} indeterminate={true} color='#CC0000'/>
+            </Animated.View> : null
+        }
         <TouchableHighlight
           style={{
             width: screenWidth,
@@ -104,11 +114,11 @@ class Search extends Component {
             top: 0,
             left: 0,
           }}
-          onPress={this.inputBlur}
+          onPress={this.resetQuery}
           underlayColor='transparent'
         >
           <Text/>
-          </TouchableHighlight>
+        </TouchableHighlight>
         <Animated.Image
           source={require('../../assets/linggle-logo.png')}
           style={[styles.linggleLogo, {
@@ -174,7 +184,9 @@ class Search extends Component {
             </TouchableHighlight>
           </Animated.View>
         </Animated.View>
-        <ResultContainer/>
+        {
+          answers.valid ? <ResultContainer data={answers.data} /> : null
+        }
       </View>
     );
   }
@@ -183,6 +195,7 @@ class Search extends Component {
 const mapStateToProps = (state) => ({
   isLoading: state.search.isLoading,
   done: state.search.done,
+  answers: state.search.answers,
 })
 
 export default connect(mapStateToProps)(Search);

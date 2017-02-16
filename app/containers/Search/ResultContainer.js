@@ -3,9 +3,11 @@
  * Created by caimingxun on 2017/2/17.
  */
 import React, {Component, PropTypes} from 'react';
-import {Text, View,
+import {
+  Text, View,
   StyleSheet, Image, TextInput, Dimensions, Animated, TouchableHighlight,
-  ScrollView,} from 'react-native';
+  ScrollView,
+} from 'react-native';
 import Result from './Result';
 
 const screenWidth = Dimensions.get('window').width;
@@ -31,21 +33,54 @@ const styles = StyleSheet.create({
 export default class ResultContainer extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      fadeIn: new Animated.Value(0),
+    }
   }
+
+  componentDidMount() {
+    Animated.timing(
+      this.state.fadeIn,
+      {toValue: 1}
+    ).start();
+  }
+
+  componentWillUnmount() {
+    Animated.timing(
+      this.state.fadeIn,
+      {toValue: 0}
+    ).start();
+  }
+
   render() {
+    const {data, fail} = this.props;
     return (
       <Animated.View
-        style={styles.container}
+        style={[styles.container, {
+          top: this.state.fadeIn.interpolate({
+            inputRange: [0, 1],
+            outputRange: [200, 100],
+          }),
+          opacity: this.state.fadeIn.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 1],
+          }),
+        }]}
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
         >
           <Result
             title
-            phase={['Result']}
+            phrase={['Result']}
             count='Count'
             percentage='Percent'
           />
+          {
+            data.map(
+              (item, key) => <Result key={key} phrase={item.phrase} count={item.count} percentage={item.percent}/>
+            )
+          }
         </ScrollView>
       </Animated.View>
     )
