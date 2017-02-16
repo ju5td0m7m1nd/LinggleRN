@@ -11,6 +11,7 @@ import Search from '../Search';
 import Info from '../Info';
 import DefaultTabBar from './DefaultTabBar';
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1

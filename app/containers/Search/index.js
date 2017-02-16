@@ -9,6 +9,9 @@ import {Text, View, StyleSheet, Image, TextInput, Dimensions, Animated, Touchabl
 import * as Progress from 'react-native-progress';
 import {search, reset} from './actions';
 
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
+GoogleAnalytics.setTrackerId('UA-92104872-1')
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import ResultContainer from './ResultContainer'
 
@@ -25,8 +28,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 48,
     shadowOffset: {
-      width: 0.4,
-      height: 0.4,
+      width: 1,
+      height: 1,
     },
     shadowColor: '#222',
     flexDirection: 'row',
@@ -59,7 +62,7 @@ class Search extends Component {
   }
 
   componentDidMount() {
-
+    GoogleAnalytics.trackEvent('route', 'search');
   }
 
   inputFocus = () => {
@@ -82,6 +85,7 @@ class Search extends Component {
   }
 
   sendQuery = () => {
+    GoogleAnalytics.trackEvent('search', 'query', {label: JSON.stringify(this.state.query)});
     this.props.dispatch(search(this.state.query))
   }
 
@@ -143,7 +147,7 @@ class Search extends Component {
           }),
           shadowOpacity: this.state.expand.interpolate({
             inputRange: [0, 1],
-            outputRange: [0.6, 0.1],
+            outputRange: [0.4, 0.1],
           }),
         }]}
         >

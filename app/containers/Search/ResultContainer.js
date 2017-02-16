@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     top: 100,
     left: screenWidth * 0.05,
     width: screenWidth * 0.9,
-    maxHeight: screenHeight * 0.7,
+    maxHeight: screenHeight * 0.75,
     backgroundColor: '#FFF',
     shadowOffset: {
       width: 0.4,

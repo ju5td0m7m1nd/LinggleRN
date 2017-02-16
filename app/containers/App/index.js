@@ -11,6 +11,7 @@ import Search from '../Search'
 import Info from '../Info'
 import Home from '../Home';
 
+
 const mainScene = {
   duration: 100,
   panHandlers: null,
