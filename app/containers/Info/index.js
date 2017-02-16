@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginTop: 16,
-    width: 150,
-    height: 150,
+    width: 132,
+    height: 132,
   },
   title: {
     fontSize: 24,
@@ -75,8 +75,7 @@ class Info extends Component {
           <Text
             style={styles.content}
           >
-            {"Our lab was established in 1988, researching and developing different NLP-related projects."}
-            {"Our main areas of research include computer-assisted language learning, word alignment, information retrieval, and machine translation."}</Text>
+            {"Our lab was established in 1988, researching and developing different NLP-related projects. Our main areas of research include computer-assisted language learning, word alignment, information retrieval, and machine translation."}</Text>
         </View>
       </View>
     );

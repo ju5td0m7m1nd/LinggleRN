@@ -5,7 +5,9 @@
 
 import { combineReducers } from 'redux';
 import app from '../containers/App/reducer';
+import search from '../containers/Search/reducer';
 
 export default combineReducers({
-  app
+  app,
+  search,
 });
