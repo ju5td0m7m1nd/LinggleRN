@@ -33,12 +33,6 @@ class Home extends Component {
 
   }
 
-  getInfo = (active) => {
-    return active ? require('../../assets/info.png') : require('../../assets/info_disable.png');
-  }
-  getSearch = (active) => {
-    return active ? require('../../assets/search.png') : require('../../assets/search_disable.png');
-  }
 
   render() {
     return (
@@ -46,8 +40,8 @@ class Home extends Component {
         <ScrollableTabView tabBarPosition='bottom' renderTabBar={
           () => <DefaultTabBar/>
         }>
-          <Search tabLabel="search" />
-          <Info tabLabel="info" />
+          <Search tabLabel="ios-search" />
+          <Info tabLabel="ios-information-circle-outline" />
         </ScrollableTabView>
       </View>
     );

@@ -8,6 +8,7 @@ const {
   Image,
 } = ReactNative;
 const Button = require('react-native-scrollable-tab-view/Button');
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const DefaultTabBar = React.createClass({
   propTypes: {
@@ -47,9 +48,10 @@ const DefaultTabBar = React.createClass({
       onPress={() => onPressHandler(page)}
     >
       <View style={[styles.tab, this.props.tabStyle,]}>
-          <Animated.Image
-            source={require('../../assets/search.png')}
-            style={{width: 24, height: 24}}
+          <Icon
+            size={24}
+            color={isTabActive ? '#CC0000' : 'rgb(204,204,204)'}
+            name={name}
           />
       </View>
     </Button>;

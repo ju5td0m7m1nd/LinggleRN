@@ -12,6 +12,7 @@
     "react-native": "0.39.0",
     "react-native-router-flux": "^3.37.0",
     "react-native-scrollable-tab-view": "^0.7.2",
+    "react-native-vector-icons": "^4.0.0",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0"
   },
