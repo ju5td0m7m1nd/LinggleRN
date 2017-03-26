@@ -5,6 +5,14 @@
 import actionTypes from './actionTypes';
 
 export const search = (payload) => {
+  global.storage.getIdsForKey('query').then(ids => {
+    global.storage.save({
+      key: 'query',
+      id: (ids.length+1) % 5,
+      rawData: payload,
+    })
+  });
+
   return dispatch => {
     dispatch({
       type: actionTypes.SEARCH,

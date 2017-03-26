@@ -34,6 +34,16 @@ const styles = StyleSheet.create({
     shadowColor: '#222',
     flexDirection: 'row',
   },
+  history: {
+    backgroundColor: 'white',
+    opacity: 0,
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    paddingTop: screenHeight / 10,
+    shadowColor: '#222',
+  },
   input: {
     flex: 9,
     padding: 16
@@ -46,11 +56,14 @@ const styles = StyleSheet.create({
     left: screenWidth * 0.25,
   },
   loading: {
+    zIndex: 100,
     position: 'absolute',
     top: screenHeight * 0.4,
     left: screenWidth * 0.5 - 24,
   }
 });
+
+const defaultHistory = ['How to describe drawer', 'In the afternoon or at the afternoon']
 
 class Search extends Component {
   constructor(props) {
@@ -58,6 +71,7 @@ class Search extends Component {
     this.state = {
       expand: new Animated.Value(0),
       query: '',
+      history: [],
     };
   }
 
@@ -66,6 +80,13 @@ class Search extends Component {
   }
 
   inputFocus = () => {
+    global.storage.getAllDataForKey('query')
+      .then(
+        results => this.setState({history: results})
+      )
+      .catch(
+        () => console.log('no result')
+      )
     Animated.timing(
       this.state.expand,
       {toValue: 1}
@@ -101,6 +122,7 @@ class Search extends Component {
   }
 
   render() {
+    const {history} = this.state
     const {isLoading, answers} = this.props;
     return (
       <View style={styles.container}>
@@ -188,8 +210,41 @@ class Search extends Component {
             </TouchableHighlight>
           </Animated.View>
         </Animated.View>
+        <View style={{
+          height: screenHeight * 0.6,
+          width: screenWidth,
+        }}>
+          {
+            !answers.valid && !isLoading ?
+              <Animated.View
+                style={[styles.history, {
+                  flex: this.state.expand.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                  }),
+                  overflow: 'hidden',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  opacity: this.state.expand.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                  }),
+                }]}
+              >
+                {
+
+                  (history || defaultHistory).map(
+                    (item, key) => <Text key={key} onPress={() => {
+                      this.setState({query: item})
+                      this.sendQuery()
+                    }}>{item}</Text>
+                  )
+                }
+              </Animated.View> : null
+          }
+        </View>
         {
-          answers.valid ? <ResultContainer data={answers.data} /> : null
+          answers.valid ? <ResultContainer data={answers.data}/> : null
         }
       </View>
     );

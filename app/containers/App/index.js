@@ -5,7 +5,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Linking } from 'react-native';
+import { Linking, AsyncStorage } from 'react-native';
+import Storage from 'react-native-storage'
 import { Router, Scene } from 'react-native-router-flux';
 import Search from '../Search'
 import Info from '../Info'
@@ -23,6 +24,15 @@ const detailScene = {
   direction: 'vertical',
   hideNavBar: true,
 };
+
+var storage = new Storage({
+  size: 1000,
+  storageBackend: AsyncStorage,
+  defaultExpires: null,
+  enableCache: true,
+})
+
+global.storage = storage
 
 class App extends Component {
   static propTypes = {
