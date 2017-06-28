@@ -77,9 +77,10 @@ export default class ResultContainer extends Component {
             percentage='Percent'
           />
           {
+            data.length ?
             data.map(
               (item, key) => <Result key={key} phrase={item.phrase} count={item.count} percentage={item.percent}/>
-            )
+            ) : <Text>Sorry, we </Text>
           }
         </ScrollView>
       </Animated.View>

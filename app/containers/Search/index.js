@@ -41,8 +41,14 @@ const styles = StyleSheet.create({
       width: 1,
       height: 1,
     },
-    paddingTop: screenHeight / 10,
+    paddingTop: screenHeight / 8,
     shadowColor: '#222',
+  },
+  historyItem: {
+    marginTop: 8,
+    color: '#CA0813',
+    fontWeight: "500",
+    textDecorationLine: 'underline',
   },
   input: {
     flex: 9,
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const defaultHistory = ['How to describe drawer', 'In the afternoon or at the afternoon']
+const defaultHistory = ['How to describe drawer', 'In the afternoon or at the afternoon', 'Replace excited in I am excited']
 
 class Search extends Component {
   constructor(props) {
@@ -224,7 +230,7 @@ class Search extends Component {
                   }),
                   overflow: 'hidden',
                   alignItems: 'center',
-                  justifyContent: 'space-around',
+                  justifyContent: 'flex-start',
                   opacity: this.state.expand.interpolate({
                     inputRange: [0, 1],
                     outputRange: [0, 1],
@@ -232,9 +238,8 @@ class Search extends Component {
                 }]}
               >
                 {
-
                   (history || defaultHistory).map(
-                    (item, key) => <Text key={key} onPress={() => {
+                    (item, key) => <Text style={styles.historyItem} key={key} onPress={() => {
                       this.setState({query: item})
                       this.sendQuery()
                     }}>{item}</Text>
